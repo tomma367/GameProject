@@ -7,23 +7,19 @@ public class Game {
 	private TileGrid grid;
 	private Player player;
 	private WaveManager waveManager;
+	public static final int TILE_SIZE = 64;
 	
-	// Temp variables
-	TowerCannon tower;
 	
 	public Game(int[][] map) {
 		grid = new TileGrid(map);
-		player = new Player(grid);
 		waveManager = new WaveManager(new Enemy(QuickLoad("UFO64"), 
-				grid.GetTile(14, 8), grid, 64, 64, 70), 2, 2);
-		tower = new TowerCannon(QuickLoad("cannonBase"), grid.GetTile(14, 7), 10);
+				grid.GetTile(14, 8), grid, TILE_SIZE, TILE_SIZE, 70), 2, 2);
+		player = new Player(grid, waveManager);
 	}
 	
 	public void update() {
 		grid.Draw();
 		waveManager.update();
-		player.Update();
-		
-		tower.update();
+		player.update();
 	}
 }
